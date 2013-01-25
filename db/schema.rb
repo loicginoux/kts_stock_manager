@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125122536) do
+ActiveRecord::Schema.define(:version => 20130125180153) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(:version => 20130125122536) do
     t.integer "product_id"
   end
 
+  create_table "categories_second_hand_products", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "second_hand_product_id"
+  end
+
   create_table "distributors", :force => true do |t|
     t.string "name"
     t.text   "description"
@@ -108,6 +113,22 @@ ActiveRecord::Schema.define(:version => 20130125122536) do
     t.datetime "updated_at"
   end
 
+  create_table "second_hand_products", :force => true do |t|
+    t.string  "name"
+    t.text    "description"
+    t.string  "color"
+    t.string  "size"
+    t.integer "year"
+    t.decimal "owner_price"
+    t.decimal "commission"
+    t.string  "state"
+    t.integer "brand_id"
+    t.integer "user_id"
+  end
+
+  add_index "second_hand_products", ["brand_id"], :name => "index_second_hand_products_on_brand_id"
+  add_index "second_hand_products", ["user_id"], :name => "index_second_hand_products_on_user_id"
+
   create_table "transactions", :force => true do |t|
     t.integer  "product_id"
     t.decimal  "total_price"
@@ -122,5 +143,15 @@ ActiveRecord::Schema.define(:version => 20130125122536) do
   add_index "transactions", ["bill_id"], :name => "index_transactions_on_bill_id"
   add_index "transactions", ["product_id"], :name => "index_transactions_on_product_id"
   add_index "transactions", ["purchase_id"], :name => "index_transactions_on_purchase_id"
+
+  create_table "users", :force => true do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "comment"
+    t.string "tel"
+    t.string "email"
+    t.text   "address"
+    t.string "role"
+  end
 
 end
