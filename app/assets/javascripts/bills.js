@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
   // delete message box
   $(".admin_bills .delete_link, .admin_bills .action_items a[data-method='delete']").attr("data-confirm", "Warning: Deleting a bill will put the products sold back into the stock. Are you sure you want to do that?");
 
-  // attach autocomplete on existing transaction for edit form
+  // attach autocomplete on existing new product transaction for edit form
   $(".edit.admin_bills .has_many_fields .product").autocomplete({
     source: function( request, response ) {
       $.ajax({
@@ -37,6 +37,7 @@ jQuery(document).ready(function($) {
     }
   });
 
+
   $(".edit.admin_bills .has_many_fields .quantity").change(function(e){
     var has_many_fields = $(e.target).parents(".has_many_fields");
     var quantity = $(e.target).val();
@@ -52,7 +53,7 @@ jQuery(document).ready(function($) {
   });
 
   // when clicking on "add new transaction"
-  $(".admin_bills .has_many").children(":last").click(function(){
+  $(".admin_bills .has_many a").click(function(){
     // we attach the autocomplete for each transaction
     $(".admin_bills .has_many_fields:last .product").autocomplete({
       source: function( request, response ) {
@@ -87,7 +88,6 @@ jQuery(document).ready(function($) {
         }
       }
     });
-
 
     // on form, when changing quantity, we update the total price
     $(".admin_bills .has_many_fields:last .quantity").change(function(e){

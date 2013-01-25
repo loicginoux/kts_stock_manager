@@ -43,18 +43,28 @@ ActiveAdmin.register Bill do
 			row :created_at
 			row :comment
 		end
-		panel "Products" do
-	    table_for bill.transactions do
-	      column :product
-	      column "Brand" do |trans|
-					trans.product.brand.name
-				end
-	      column :quantity
-	      column "Unit Price" do |trans|
-					trans.product.selling_price
-				end
-	      column "Price", :total_price
-	    end
+		if bill.transactions.onNewProduct()
+			panel "New Products" do
+		    table_for bill.transactions.onNewProduct() do
+		      column :product
+		      column "Brand" do |trans|
+						trans.product.brand.name
+					end
+		      column :quantity
+		      column "Unit Price" do |trans|
+						trans.product.selling_price
+					end
+		      column "Price", :total_price
+		    end
+	  	end
+		end
+		if bill.transactions.onSecondHandProduct()
+	  	panel "Products" do
+		    table_for bill.transactions.onSecondHandProduct() do
+		      column :second_hand_product
+		      column "Price", :total_price
+		    end
+	  	end
   	end
 	end
 

@@ -101,7 +101,6 @@ ActiveAdmin.register Product do
 		# autocomplete :product, :name
 		def autocomplete_name
 			@products = Product.select([:id, :name, :selling_price]).find(:all,:conditions => ['name LIKE ?', "%#{params[:term]}%"],  :limit => 5, :order => 'name')
-			puts @products
 			respond_to do |format|
 				format.html # autocomplete_name.html.erb
 				format.xml  { render :xml => @products }

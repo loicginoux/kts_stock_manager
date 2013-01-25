@@ -41,7 +41,7 @@ ActiveAdmin.register_page "Dashboard" do
 
         panel "Owners with a second hand material sold" do
           ul do
-            User.owners().with_material_sold().map do |user|
+            User.owners().with_material_sold().uniq().map do |user|
               li link_to user.full_name, admin_user_path(user)
             end
           end

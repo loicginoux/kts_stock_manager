@@ -7,11 +7,6 @@ ActiveAdmin.register Transaction do
 		column :total_price
 		column :product
 		column :quantity
-		# column "Bill" do |trans|
-		# 	if !trans.bill.nil?
-		# 		link_to trans.bill.id, admin_bill_path(trans.bill.id)
-		# 	end
-		# end
 		default_actions
 	end
 

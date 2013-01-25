@@ -4,6 +4,9 @@ Kts::Application.routes.draw do
     resources :products do
       get :autocomplete_name, :on => :collection
     end
+    resources :second_hand_products do
+      get :autocomplete_name, :on => :collection
+    end
   end
 
   ActiveAdmin.routes(self)
