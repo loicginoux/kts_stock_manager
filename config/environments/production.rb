@@ -48,7 +48,7 @@ Kts::Application.configure do
   config.action_mailer.default_url_options = { :host => '0.0.0.0:5000' }
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w[active_admin.css active_admin.js]
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
