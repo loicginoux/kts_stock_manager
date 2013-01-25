@@ -1,0 +1,7 @@
+table_for assigns[:post].comments do
+  column :id
+  column :author
+  column :body do |comment|
+    simple_format comment.body
+  end
+end

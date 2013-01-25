@@ -1,0 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require custom_active_admin
+//= require transactions
+//= require products
+//= require bills
+//= require purchases
+//= require active_admin/base
