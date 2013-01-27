@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function($) {
   // delete message box
   $(".admin_bills .delete_link, .admin_bills .action_items a[data-method='delete']").attr("data-confirm", "Warning: Deleting a bill will put the products sold back into the stock. Are you sure you want to do that?");

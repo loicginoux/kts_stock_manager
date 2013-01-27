@@ -8,11 +8,17 @@ class User < ActiveRecord::Base
                   :role
 
   has_many :second_hand_products
+  has_many :classes
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
 
-  ROLE = [["Second Hand Product Owner", "owner"]]
+  ROLE = [
+    ["Second Hand Product Owner", "owner"],
+    ["Student", "student"],
+    ["Instructor", "instructor"],
+    ["Renting", "Renting"]
+  ]
 
 
   scope :owners, where(:role => "owner")

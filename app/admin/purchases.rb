@@ -43,27 +43,6 @@ ActiveAdmin.register Purchase do
 			end
 			row :created_at
 			row :comment
-			# table_for bill.transactions do
-			# 	column do |trans|
-			# 		attributes_table do
-			# 			row "Product" do
-			# 				trans.product.name
-			# 			end
-			# 			row "Brand" do
-			# 				trans.product.brand.name
-			# 			end
-			# 			row "Quantity" do
-			# 				trans.quantity
-			# 			end
-			# 			row "unit price" do
-			# 				trans.product.selling_price
-			# 			end
-			# 			row "Price" do
-			# 				trans.total_price
-			# 			end
-			# 		end
-			# 	end
-			# end
 		end
 		panel "Products" do
 	    table_for bill.transactions do
