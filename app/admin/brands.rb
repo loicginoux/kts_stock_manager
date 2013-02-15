@@ -1,3 +1,3 @@
 ActiveAdmin.register Brand do
-	menu :parent => "Stock"
+	menu :parent => "Shop"
 end

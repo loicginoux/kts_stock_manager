@@ -1,3 +1,3 @@
 ActiveAdmin.register Distributor do
-	menu :parent => "Stock"
+	menu :parent => "Shop"
 end

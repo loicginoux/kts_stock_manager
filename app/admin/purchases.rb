@@ -1,34 +1,41 @@
+# encoding: UTF-8
 ActiveAdmin.register Purchase do
-	menu :parent => "Accounts"
+	menu :parent => "Cash Control", :label => "Out"
 
-	index do
-		selectable_column
+	filter :price
+	filter :created_at, :label => "Date"
+	filter :comment
+
+	index :title => "Stock Purchases" do
 		column :id
-		column :price
+		column "Price" do |p|
+			"#{p.price} €"
+		end
 		column :comment
-		column :created_at
+		column "Date" do |l|
+			l.created_at.to_s(:db)
+		end
 		default_actions
 	end
 
-	filter :price
-	filter :created_at
+
 
 	form do |f|
 		f.inputs "transactions" do
 			f.has_many :transactions do |trans|
-				# trans.input :action,:as => :select, :collection => Transaction::ACTION, :selected => "sell"
 				trans.input :action, :as => :hidden, :input_html => { :value => "buy" }
+				trans.input :product_id,
+						:as => :string,
+						:input_html => {:class => "product", :style => "width:76%" }
 				if trans.object.new_record?
-					trans.input :product_id, :as => :string, :hint => "Find the product by his name", :input_html => {:class => "product"}
 					trans.input :quantity, :as => :select, :collection => 1..20 , :selected => "1", :input_html =>{:class => "quantity" }
 				else
-					trans.input :product_id, :as => :string, :hint => "Product name: #{trans.object.product.name} - unit price: #{trans.object.product.selling_price}", :input_html => {:class => "product", :data_unit_price => trans.object.product.selling_price}
 					trans.input :quantity, :as => :select, :collection => 1..20 , :input_html =>{:class => "quantity" }
 				end
 
-				trans.input :total_price, :label => "Price", :input_html =>{:class => "total_price" }
+				trans.input :total_price, :label => "Price (€)", :input_html =>{:class => "total_price" }
 			end
-			f.input :price, :label => "Total Price", :hint => "calculated automatically but you can modify it later for discount"
+			f.input :price, :label => "Total Price (€)", :hint => "calculated automatically but you can modify it later for discount"
 			f.input :comment
 		end
 
@@ -39,7 +46,7 @@ ActiveAdmin.register Purchase do
 	show do |bill|
 		attributes_table do
 			row "total Price" do
-				bill.price
+				"#{bill.price} €"
 			end
 			row :created_at
 			row :comment
@@ -52,9 +59,11 @@ ActiveAdmin.register Purchase do
 				end
 	      column :quantity
 	      column "Unit Price" do |trans|
-					trans.product.selling_price
+					"#{trans.product.selling_price} €"
 				end
-	      column "Price", :total_price
+	      column "Price" do |t|
+	      	"#{t.total_price} €"
+	      end
 	    end
   	end
 	end

@@ -2,7 +2,7 @@ ActiveAdmin.register Transaction do
 	menu false
 
 	index do
-		selectable_column
+
 		column :id
 		column :total_price
 		column :product

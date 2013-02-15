@@ -1,10 +1,16 @@
 Kts::Application.routes.draw do
-
+  resources :users, :only => [:create, :new, :show]
   namespace :admin do
     resources :products do
       get :autocomplete_name, :on => :collection
     end
     resources :second_hand_products do
+      get :autocomplete_name, :on => :collection
+    end
+    resources :users do
+      get :autocomplete_name, :on => :collection
+    end
+    resources :materials do
       get :autocomplete_name, :on => :collection
     end
   end
@@ -15,6 +21,8 @@ Kts::Application.routes.draw do
 
 
   root :to => 'pages#show', :id => 'home', :as => "home", :format => false
+  match 'terms_and_conditions'  => 'pages#show', :id => 'terms_and_conditions', :as => "terms_and_conditions", :format => false
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

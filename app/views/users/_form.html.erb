@@ -1,0 +1,102 @@
+<%= form_for @user, :html => { :class => "form-horizontal form-signin" } do |f| %>
+  <h1>KTS</h1>
+  <h2 class="form-signin-heading">Registration form</h2>
+
+    <div class="control-group role">
+<div class="btn-group center userType" data-toggle="buttons-radio">
+          <button type="button" class="btn " data-id = "student">New Student</button>
+          <button type="button" class="btn " data-id = "rentals">Rentals</button>
+          <button type="button" class="btn " data-id = "owner">Second Hand Product Owner</button>
+        </div>
+        <%= f.text_field :role, :class => "hide" %>
+    </div>
+
+
+    <div class="control-group student owner rentals">
+      <%= label_tag :first_name, nil, :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :first_name, :class => "input-xlarge" , :placeholder=> "First Name"  %>
+      </div>
+    </div>
+
+    <div class="control-group student owner rentals">
+      <%= label_tag :last_name, nil, :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :last_name, :class => "input-xlarge" , :placeholder=> "Last Name"  %>
+      </div>
+    </div>
+
+    <div class="control-group student owner rentals">
+      <%= label_tag :email, nil, :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :email, :class => "input-xlarge" , :placeholder=> "Email"  %>
+      </div>
+    </div>
+
+    <div class="control-group student owner rentals">
+      <%= label_tag :tel, nil, :class => "control-label"%>
+      <div class="controls">
+        <%= f.text_field :tel, :class => "input-xlarge" , :placeholder=> "Tel."  %>
+      </div>
+    </div>
+
+    <div class="control-group student owner rentals">
+      <%= label_tag :address, nil, :class => "control-label"  %>
+      <div class="controls">
+        <%= f.text_area :address, :rows => 4, :class => "input-xlarge" , :placeholder=> "Address"  %>
+      </div>
+    </div>
+
+    <div class="control-group student owner rentals">
+      <label class="control-label" for="inputNationality">Nationality</label>
+      <div class="controls">
+        <%= f.text_field :nationality, :class => "input-xlarge" , :placeholder=> "Nationality"  %>
+      </div>
+    </div>
+
+    <div class="control-group student">
+      <label class="control-label" >What language would you like your course?</label>
+      <div class="controls">
+        <%= f.text_field :language,  :class => "input-xlarge" , :placeholder=> "English or Spanish or Italian"  %>
+      </div>
+    </div>
+
+    <div class="control-group student">
+      <label class="control-label" for="inputSize">What is your size of wetsuit?</label>
+      <div class="controls">
+        <%= f.text_field :size,  :class => "input-xlarge" , :placeholder=> "XS / S / M / L / XL / XXL"  %>
+      </div>
+    </div>
+
+    <div class="control-group student rentals">
+      <label for="" class="control-label">Have you done kiteboarding before?</label>
+      <div class="controls">
+        <label class="radio">
+          <input type="radio" name="level" id="firstTime" value="firstTime" checked>No, it's my first time
+        </label>
+        <label class="radio">
+          <input type="radio" name="level" id="discovery" value="discovery"> I have started discovering the material, I can manouver the kite on the beach, I know the security.
+        </label>
+        <label class="radio">
+          <input type="radio" name="level" id="bodyDrag" value="bodyDrag"> I know how to control the kite and can get dragged in the water without the board
+        </label>
+        <label class="radio">
+          <input type="radio" name="level" id="waterStart" value="waterStart"> I know how to control the kite, can do the body drag and working on the water start
+        </label>
+        <label class="radio">
+          <input type="radio" name="level" id="firstRide" value="firstRide"> I can get up on the board but can't ride consistently
+        </label>
+        <label class="radio">
+          <input type="radio" name="level" id="jump" value="jump"> I can ride in both ways, go upwind and start jumping
+        </label>
+      </div>
+    </div>
+
+
+    <label class="checkbox">
+      <input type="checkbox" class="accept_conditions" value="accept_conditions">I have read and I accept the <a href="/terms_and_conditions">terms and conditions</a>
+    </label>
+
+    <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+<% end %>
+

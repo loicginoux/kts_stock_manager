@@ -3,6 +3,8 @@ class TransactionObserver < ActiveRecord::Observer
   def after_create(trans)
   	prod = trans.product
   	second_hand_prod = trans.second_hand_product
+  	rental = trans.rental
+  	contract = trans.contract
   	if prod
   		prodQuantity = prod.quantity
   		multiplicator = (trans.action == "sell") ? 1 : -1
@@ -12,6 +14,22 @@ class TransactionObserver < ActiveRecord::Observer
     	bill = Bill.new({
     		:price => trans.total_price,
     		:comment => "second hand product commission"
+    	})
+    	bill.transactions << trans
+    	bill.save
+    end
+    if rental
+    	bill = Bill.new({
+    		:price => trans.total_price,
+    		:comment => "Rentals"
+    	})
+    	bill.transactions << trans
+    	bill.save
+    end
+    if contract
+    	bill = Bill.new({
+    		:price => trans.total_price,
+    		:comment => "School class"
     	})
     	bill.transactions << trans
     	bill.save
@@ -45,6 +63,9 @@ class TransactionObserver < ActiveRecord::Observer
 	  		newProd.update_attributes(:quantity => newProd.quantity - newQuantity * multiplicator )
 	  		oldProd.update_attributes(:quantity => oldProd.quantity + oldQuantity * multiplicator )
 	  	end
+	  end
+	  if (trans.rental_id || trans.contract_id) && trans.total_price_changed?
+	  	trans.bill.update_attributes(:price => trans.total_price)
 	  end
   end
 

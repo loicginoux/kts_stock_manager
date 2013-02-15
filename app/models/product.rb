@@ -24,6 +24,9 @@ class Product < ActiveRecord::Base
 
 	accepts_nested_attributes_for :categories
 
+  scope :in_stock, where("quantity >= 0")
+  scope :out_of_stock, where("quantity <= 0")
+
   def default_init_val
   	if new_record?
     	self.quantity ||= 0

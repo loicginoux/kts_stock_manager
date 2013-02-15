@@ -40,6 +40,9 @@ gem "high_voltage"
 #better sql logging
 gem "hirb"
 
+gem "just-datetime-picker"
+
+gem "select2-rails"
 
 
 # To use ActiveModel has_secure_password

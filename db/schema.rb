@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125212139) do
+ActiveRecord::Schema.define(:version => 20130214163403) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "role"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "tel"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -52,6 +56,17 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.datetime "updated_at"
     t.text     "comment"
   end
+
+  create_table "borrows", :force => true do |t|
+    t.integer "material_id"
+    t.integer "rental_id"
+    t.integer "lesson_id"
+    t.integer "quantity"
+  end
+
+  add_index "borrows", ["lesson_id"], :name => "index_borrows_on_lesson_id"
+  add_index "borrows", ["material_id"], :name => "index_borrows_on_material_id"
+  add_index "borrows", ["rental_id"], :name => "index_borrows_on_rent_id"
 
   create_table "brands", :force => true do |t|
     t.string "name"
@@ -74,6 +89,37 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.integer "second_hand_product_id"
   end
 
+  create_table "contracts", :force => true do |t|
+    t.string   "contract_type"
+    t.integer  "hours"
+    t.integer  "done_hours"
+    t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "total_price"
+    t.integer  "paid"
+    t.string   "payment_method"
+    t.text     "comment"
+  end
+
+  add_index "contracts", ["user_id"], :name => "index_contracts_on_user_id"
+
+  create_table "contracts_lessons", :id => false, :force => true do |t|
+    t.integer "contract_id"
+    t.integer "lesson_id"
+  end
+
+  create_table "disponibilities", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "disponibilities", ["user_id"], :name => "index_disponibilities_on_user_id"
+
   create_table "distributors", :force => true do |t|
     t.string "name"
     t.text   "description"
@@ -81,6 +127,34 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.string "email"
     t.text   "address"
   end
+
+  create_table "lessons", :force => true do |t|
+    t.integer  "instructor_id"
+    t.integer  "hours"
+    t.datetime "date"
+    t.string   "lesson_type"
+    t.text     "comment"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "lessons", ["instructor_id"], :name => "index_lessons_on_instructor_id"
+
+  create_table "materials", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "quantity"
+    t.string   "color"
+    t.string   "size"
+    t.string   "year"
+    t.integer  "brand_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "materials", ["brand_id"], :name => "index_materials_on_brand_id"
+  add_index "materials", ["category_id"], :name => "index_materials_on_category_id"
 
   create_table "pictures", :force => true do |t|
     t.string  "name"
@@ -113,6 +187,21 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.datetime "updated_at"
   end
 
+  create_table "rentals", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "price"
+    t.integer  "deposit"
+    t.string   "document_left"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "state"
+  end
+
+  add_index "rentals", ["user_id"], :name => "index_rents_on_user_id"
+
   create_table "second_hand_products", :force => true do |t|
     t.string  "name"
     t.text    "description"
@@ -139,6 +228,8 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
     t.integer  "purchase_id"
     t.string   "action"
     t.integer  "second_hand_product_id"
+    t.integer  "rental_id"
+    t.integer  "contract_id"
   end
 
   add_index "transactions", ["bill_id"], :name => "index_transactions_on_bill_id"
@@ -147,13 +238,18 @@ ActiveRecord::Schema.define(:version => 20130125212139) do
   add_index "transactions", ["second_hand_product_id"], :name => "index_transactions_on_second_hand_product_id"
 
   create_table "users", :force => true do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "comment"
-    t.string "tel"
-    t.string "email"
-    t.text   "address"
-    t.string "role"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "comment"
+    t.string  "tel"
+    t.string  "email"
+    t.text    "address"
+    t.string  "role"
+    t.string  "language"
+    t.string  "nationality"
+    t.text    "level"
+    t.string  "size"
+    t.boolean "accept_conditions"
   end
 
 end

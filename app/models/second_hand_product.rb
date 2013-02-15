@@ -25,6 +25,19 @@ class SecondHandProduct < ActiveRecord::Base
   scope :sold, where(:state => "sold")
   scope :owner_paid, where(:state => "owner_paid")
 
+  # scope :selling_price_eq, lambda { |price|
+  #   SecondHandProduct.where("second_hand_products.owner_price = ?", price)
+  # }
+  # scope :selling_price_lt, lambda { |price|
+  #   SecondHandProduct.where(:owner_price => price)
+  # }
+  # scope :selling_price_gt, lambda { |price|
+  #   SecondHandProduct.where(:owner_price => price)
+  # }
+  # search_methods :selling_price_eq
+  # search_methods :selling_price_gt
+  # search_methods :selling_price_lt
+
   STATE = [
     ["In Stock", "in_stock"],
     ["Sold", "sold"],
