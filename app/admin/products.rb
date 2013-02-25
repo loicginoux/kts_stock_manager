@@ -29,12 +29,12 @@ ActiveAdmin.register Product do
 	index do
 		column :id
 		column :name
-		column :brand
+		column :brand, :sortable => :"brands.name"
 		column "Qty.", :quantity
-		column "Cost Price" do |p|
+		column "Cost Price", :sortable => :cost_price do |p|
 			"#{p.cost_price} €"
 		end
-		column "Selling Price" do |p|
+		column "Selling Price", :sortable => :cost_price do |p|
 			"#{p.selling_price} €"
 		end
 		column :color
@@ -55,7 +55,17 @@ ActiveAdmin.register Product do
 	######################
 	#  show
 	######################
+	member_action :duplicate, :method => :get do
+		p = Product.find(params[:id])
+		newP = p.dup
+		newP.save
+		redirect_to edit_admin_product_path(newP), :notice => "Item Duplicated. You are now editing it."
+	end
 
+	action_item :only => :show do
+		p = Product.find(params[:id])
+		link_to "Duplicate Product", duplicate_admin_product_path(p)
+	end
 	show do |prod|
 		attributes_table do
 			row :name
@@ -90,8 +100,8 @@ ActiveAdmin.register Product do
 			f.input :brand,
 				:input_html => { :style => "width:76%" }
 			f.input :quantity
-			f.input :cost_price, :label => "Cost Price(€)"
-			f.input :selling_price, :label => "selling_price Price(€)"
+			f.input :cost_price, :label => "Cost Price (€)"
+			f.input :selling_price, :label => "Selling Price (€)"
 			f.input :distributor,
 				:input_html => { :style => "width:76%" }
 			f.input :categories,
@@ -135,6 +145,9 @@ ActiveAdmin.register Product do
 				format.json { render :json => @products }
 			end
 		end
+  	def scoped_collection
+    	Product.includes(:brand).includes(:distributor)
+  	end
 	end
 
 end

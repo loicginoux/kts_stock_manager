@@ -14,21 +14,21 @@ ActiveAdmin.register Contract do
 
 	index do
 		column :id
-		column "Student", :user
+		column "Student", :user, :sortable => :"users.last_name"
 		column "Type", :contract_type
-		column "Contracted" do |c|
+		column "Contracted", :sortable => :hours do |c|
 			"#{c.hours} h."
 		end
-		column "Done" do |c|
+		column "Done", :sortable => :done_hours do |c|
 			"#{c.done_hours} h."
 		end
 		column "Left " do |c|
 			"#{c.hours_left} h."
 		end
-		column "Price" do |c|
+		column "Price", :sortable => :total_price  do |c|
 			"#{c.total_price} €"
 		end
-		column "Paid" do |c|
+		column "Paid", :sortable => :paid do |c|
 			"#{c.paid} €"
 		end
 		column "To Be Paid" do |c|
@@ -97,5 +97,11 @@ ActiveAdmin.register Contract do
 				end
 			end
 		end
+	end
+
+	controller do
+  	def scoped_collection
+    	Contract.includes(:user)
+  	end
 	end
 end

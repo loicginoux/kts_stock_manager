@@ -8,11 +8,11 @@ ActiveAdmin.register Lesson do
   filter :date
 
   index do
-		column :instructor
-		column "Hours" do |l|
+		column :instructor, :sortable => :"admin_users.first_name"
+		column "Hours", :sortable => :hours  do |l|
 			"#{l.hours} h."
 		end
-		column "Date" do |l|
+		column "Date", :sortable => :date do |l|
 			l.date.to_s(:db)
 		end
 		column "Type", :lesson_type
@@ -87,6 +87,11 @@ ActiveAdmin.register Lesson do
 			f.input :comment
 		end
 	  f.buttons
+	end
 
+	controller do
+  	def scoped_collection
+    	Lesson.includes(:instructor)
+  	end
 	end
 end

@@ -1,5 +1,5 @@
 jQuery(document).ready(($) ->
-	coachingIntensityController = new kts.RadioBoxController({
+	coachingIntensityController = new KTS.RadioBoxController({
 		el: $(".role"),
 		input: $("#user_role")
 	})

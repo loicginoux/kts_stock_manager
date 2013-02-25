@@ -4,11 +4,11 @@ ActiveAdmin.register Bill do
 
 	index :title => "Bills" do
 		column :id
-		column "Total Price" do |b|
+		column "Total Price", :sortable => :price  do |b|
 			"#{b.price} €"
 		end
 		column :comment
-		column "Date" do |l|
+		column "Date", :sortable => :created_at do |l|
 			l.created_at.to_s(:db)
 		end
 		default_actions

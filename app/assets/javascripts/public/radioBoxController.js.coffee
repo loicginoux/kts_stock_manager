@@ -1,4 +1,4 @@
-class kts.RadioBoxController extends Spine.Controller
+class KTS.RadioBoxController extends Spine.Controller
 	events:
 		"click .btn" : "switchOption"
 	elements:
